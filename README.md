@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI System Design Canvas
+
+An AI-powered system design diagram generator built with Next.js, React, and TypeScript. This application allows users to input natural language prompts describing system architectures and generates interactive visual diagrams.
+
+## Features
+
+- **Natural Language Input**: Describe your system architecture in plain English
+- **AI-Powered Generation**: Generate system diagrams based on your prompts
+- **Interactive Canvas**: Drag and drop nodes, select components, and visualize connections
+- **Responsive Design**: Works on desktop and mobile devices
+- **Modern UI**: Clean, intuitive interface with Tailwind CSS styling
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ or Bun
+- npm, yarn, or bun package manager
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd ai-system-design-canvas
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+# or
+bun install
+```
+
+3. Run the development server:
 ```bash
 npm run dev
 # or
 yarn dev
 # or
-pnpm dev
-# or
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Usage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Enter a Prompt**: Use the left panel to describe the system you want to design
+2. **Generate Diagram**: Click "Generate Diagram" to create your system architecture
+3. **Interact with Canvas**: 
+   - Drag nodes to reposition them
+   - Click nodes to select them
+   - View connections between components
+4. **Example Prompts**: Use the provided examples to get started quickly
 
-## Learn More
+### Example Prompts
 
-To learn more about Next.js, take a look at the following resources:
+- "Design a microservices architecture for an e-commerce platform with user authentication, product catalog, and order management"
+- "Create a system design for a real-time chat application supporting millions of concurrent users"
+- "Design a scalable video streaming service with CDN integration and adaptive bitrate streaming"
+- "Architect a social media platform with news feed, user profiles, and content recommendation system"
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Architecture
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The application consists of three main components:
 
-## Deploy on Vercel
+1. **Main Page** (`app/page.tsx`): Orchestrates the overall layout and state
+2. **Prompt Input** (`app/components/PromptInput.tsx`): Handles user input and prompt submission
+3. **System Design Canvas** (`app/components/SystemDesignCanvas.tsx`): Renders the interactive diagram
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Technology Stack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: React hooks (useState, useEffect, useCallback)
+- **Canvas**: Custom SVG-based implementation (ready for React Flow integration)
+
+## Future Enhancements
+
+- [ ] Integrate with actual AI APIs (OpenAI, Anthropic, etc.)
+- [ ] Add React Flow for advanced diagram interactions
+- [ ] Implement diagram export functionality (PNG, SVG, PDF)
+- [ ] Add more system component types and templates
+- [ ] Support for collaborative editing
+- [ ] Diagram validation and optimization suggestions
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.
+
+## Support
+
+For questions or issues, please open an issue on GitHub or contact the development team.
