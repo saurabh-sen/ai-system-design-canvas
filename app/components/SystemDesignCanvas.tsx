@@ -96,7 +96,7 @@ function SystemDesignCanvasInner({ prompt, isGenerating }: SystemDesignCanvasPro
         borderRadius: '4px'
       },
       markerEnd: {
-        type: 'arrowclosed',
+        type: 'arrowclosed' as const,
         color: '#666',
         width: 20,
         height: 20

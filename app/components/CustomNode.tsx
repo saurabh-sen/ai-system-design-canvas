@@ -2,7 +2,7 @@
 
 import { memo } from 'react';
 import { Handle, Position, NodeProps } from '@xyflow/react';
-import { NodeType } from '../../store/useSystemDesignStore';
+import { NodeType, SystemComponent } from '../../store/useSystemDesignStore';
 
 // Node styling configuration
 const nodeStyles: Record<NodeType, { background: string; borderColor: string; icon: string }> = {
@@ -48,8 +48,8 @@ const nodeStyles: Record<NodeType, { background: string; borderColor: string; ic
   }
 };
 
-const CustomNode = memo(({ data, selected }: NodeProps) => {
-  const { label, description, technology, componentType } = data;
+const CustomNode = memo(({ data, selected }: NodeProps<SystemComponent>) => {
+  const { label, description, technology, componentType } = data ;
   const style = nodeStyles[componentType];
 
   return (
