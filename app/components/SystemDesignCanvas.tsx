@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo, useRef, useEffect } from 'react';
+import { useCallback, useMemo, useRef, useEffect, useState } from 'react';
 import {
   ReactFlow,
   Background,
@@ -54,7 +54,35 @@ function SystemDesignCanvasInner({ prompt, isGenerating }: SystemDesignCanvasPro
     viewport
   } = useSystemDesignStore();
 
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
   const reactFlowInstance = useReactFlow();
+
+  // Full screen functionality
+  const toggleFullScreen = useCallback(() => {
+    setIsFullScreen(!isFullScreen);
+  }, [isFullScreen]);
+
+  // Handle escape key to exit full screen
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isFullScreen) {
+        setIsFullScreen(false);
+      }
+    };
+
+    if (isFullScreen) {
+      document.addEventListener('keydown', handleKeyDown);
+      return () => document.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [isFullScreen]);
+
+  // Handle click outside to exit full screen
+  const handleOverlayClick = useCallback((event: React.MouseEvent) => {
+    if (event.target === event.currentTarget) {
+      setIsFullScreen(false);
+    }
+  }, []);
 
   // Auto-fit view when nodes change
   useEffect(() => {
@@ -201,13 +229,40 @@ function SystemDesignCanvasInner({ prompt, isGenerating }: SystemDesignCanvasPro
   }
 
   return (
-    <div className="h-full w-full bg-gray-50 p-4">
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full overflow-hidden">
+    <div 
+      className={`${isFullScreen ? 'fixed inset-0 z-50' : 'h-full w-full'} bg-gray-50 ${isFullScreen ? 'p-0' : 'p-4'}`}
+      onClick={isFullScreen ? handleOverlayClick : undefined}
+    >
+      <div 
+        className={`bg-white ${isFullScreen ? 'rounded-none shadow-none border-0' : 'rounded-lg shadow-sm border border-gray-200'} h-full overflow-hidden`}
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Canvas Header */}
         <div className="px-4 py-3 border-b border-gray-200 bg-gray-50">
           <div className="flex items-center justify-between">
             <h4 className="text-sm font-medium text-gray-700">System Architecture</h4>
             <div className="flex space-x-2">
+              <button 
+                onClick={toggleFullScreen}
+                className="px-3 py-1 text-xs bg-purple-100 text-purple-700 rounded-md hover:bg-purple-200 transition-colors flex items-center gap-1"
+                title={isFullScreen ? "Exit Full Screen" : "Preview Full Screen"}
+              >
+                {isFullScreen ? (
+                  <>
+                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 9V4.5M9 9H4.5M9 9L3.5 3.5M15 9h4.5M15 9V4.5M15 9l5.5-5.5M9 15v4.5M9 15H4.5M9 15l-5.5 5.5M15 15h4.5M15 15v4.5m0-4.5l5.5 5.5" />
+                    </svg>
+                    Exit Full Screen
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                    </svg>
+                    Full Screen
+                  </>
+                )}
+              </button>
               <button 
                 onClick={() => {
                   applyAutoLayout();
