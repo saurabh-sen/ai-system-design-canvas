@@ -40,7 +40,7 @@ export default function PromptInput({ onGenerate, isGenerating }: PromptInputPro
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             placeholder="Describe the system you want to design... (e.g., Design a microservices architecture for an e-commerce platform)"
-            className="w-full h-32 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
+            className="w-full h-32 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none text-gray-600"
             disabled={isGenerating}
           />
         </div>
